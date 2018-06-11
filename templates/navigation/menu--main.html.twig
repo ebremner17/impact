@@ -1,0 +1,70 @@
+{#
+/**
+ * @file
+ * Theme override to display a menu.
+ *
+ * Available variables:
+ * - menu_name: The machine name of the menu.
+ * - items: A nested list of menu items. Each menu item contains:
+ *   - attributes: HTML attributes for the menu item.
+ *   - below: The menu item child items.
+ *   - title: The menu link title.
+ *   - url: The menu link url, instance of \Drupal\Core\Url
+ *   - localized_options: Menu link localized options.
+ *   - is_expanded: TRUE if the link has visible children within the current
+ *     menu tree.
+ *   - is_collapsed: TRUE if the link has children within the current menu tree
+ *     that are not currently visible.
+ *   - in_active_trail: TRUE if the link is in the active trail.
+ */
+#}
+
+{% import _self as menus %}
+
+{#
+  We call a macro which calls itself to render the full tree.
+  @see http://twig.sensiolabs.org/doc/tags/macro.html
+#}
+{% set menu = simplify_menu('main') %}
+
+{{ menus.menuMacro(menu.menu_tree, 1) }}
+
+{% macro menuMacro(menu, level) -%}
+
+  {# Set our default level as an integer. #}
+  {% set default_level = 1 %}
+
+  {% if level > 1 %}
+    {% set ul_class = 'sub-menu' %}
+  {% else %}
+    {% set ul_class = 'main-menu' %}
+  {% endif %}
+  <div class="menu-navigation">
+
+    <ul class="{{ ul_class }}">
+      {% for menu_item in menu %}
+        {# Check if this is the active item. #}
+        {% set active = (menu_item.active) ? ' is-active' : '' %}
+
+        {# Check if this item is in the active trail. #}
+        {% set active = active ~ ((menu_item.active_trail) ? ' is-active-trail' : '') %}
+
+        {% if menu_item.submenu %}
+          {% set li_class = 'menu-item has-submenu' %}
+        {% else %}
+          {% set li_class = 'menu-item' %}
+        {% endif %}
+
+        <li class="{{ li_class }}{{ active }}">
+          <a href="{{ menu_item.url }}"  class="menu__link{{ active }}">
+            {{ menu_item.text }}{% if menu_item.submenu %}<i class="arrow down"></i>{% endif %}
+          </a>
+          {% if menu_item.submenu %}
+            {# Since this menu item has a submenu, recall function and increment counter. #}
+            {{ _self.menuMacro(menu_item.submenu, level|default(default_level) + 1) }}
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+{%- endmacro %}

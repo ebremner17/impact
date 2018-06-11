@@ -1,0 +1,25 @@
+<?php
+/**
+* @file
+* Bootstrap sub-theme.
+*
+* Place your custom PHP code in this file.
+*/
+function impact_preprocess_html(&$variables) {
+  if ($node = \Drupal::request()->attributes->get('node')) {
+    $variables['attributes']['class'][] = 'page-node-' . $node->id();
+  }
+
+  $current_path = \Drupal::service('path.current')->getPath();
+  $variables['current_path'] = \Drupal::service('path.alias_manager')->getAliasByPath($current_path);
+}
+
+function impact_preprocess_region(&$variables) {
+  if (isset($variables['region']) && $variables['region'] == "content") {
+    $node = \Drupal::routeMatch()->getParameter('node');
+    if (isset($node) && $node->getType() == "impact_web_page") {
+      vardumper($node->get('field_iwb_block_types'));
+      //vardumper($node);
+    }
+  }
+}

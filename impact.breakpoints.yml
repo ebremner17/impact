@@ -1,0 +1,16 @@
+# Breakpoints - change based on site need
+parsons.xsmall:
+  label: Extra Small
+  mediaQuery: 'all and (min-width: 20em)'
+parsons.small:
+  label: Small
+  mediaQuery: 'all and (min-width: 30em)'
+parsons.medium:
+  label: Medium
+  mediaQuery: 'all and (min-width: 48em)'
+parsons.large:
+  label: Large
+  mediaQuery: 'all and (min-width: 64em)'
+parsons.xlarge:
+  label: Extra large
+  mediaQuery: 'all and (min-width: 80em)'

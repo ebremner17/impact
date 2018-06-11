@@ -1,0 +1,8 @@
+# Ignore compiled files.
+node_modules
+css
+js
+
+# Git deploy
+.publish
+.DS_Store

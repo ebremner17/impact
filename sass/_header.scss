@@ -1,0 +1,51 @@
+#header {
+  width: 100%;
+
+  .header--container {
+    display: grid;
+    width: 100%;
+    max-width: 100%;
+    background-color: #F6F7FB;
+    color: black;
+    overflow: hidden;
+    padding: 0;
+    grid-template-columns: 100%;
+
+    @include large {
+      grid-template-columns: 100%;
+      grid-template-rows: 100%;
+    }
+  }
+
+  .header--logo {
+    z-index: 10;
+    top: 20px;
+    left: 30px;
+    transition: width .5s,height .5s,position .5s;
+    position: absolute;
+    overflow: hidden;
+  }
+
+  .header--title {
+    padding-top:1rem;
+    padding-bottom: 0.5rem;
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    text-align: center;
+
+    .header-title {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+    .header-slogan {
+      position:relative;
+      top: -0.3rem;
+      font-style: italic;
+    }
+
+    .header-bullet {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+  }
+}

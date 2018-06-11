@@ -1,0 +1,17 @@
+name: Impact
+type: theme
+description: Theme for Impact Percussion.
+base theme: stable
+core: 8.x
+
+libraries:
+  - core/normalize
+  - impact/global-styling
+
+regions:
+  header: Header
+  navigation: Navigation
+  slideshow: Slideshow
+  content: Content  # the content region is required
+  sidebar: 'Sidebar'
+  footer: Footer
