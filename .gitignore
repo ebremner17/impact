@@ -5,3 +5,4 @@ css
 # Git deploy
 .publish
 .DS_Store
+package-lock.json
