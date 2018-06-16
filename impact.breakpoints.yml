@@ -1,16 +1,16 @@
 # Breakpoints - change based on site need
-parsons.xsmall:
+impact.xsmall:
   label: Extra Small
   mediaQuery: 'all and (min-width: 20em)'
-parsons.small:
+impact.small:
   label: Small
   mediaQuery: 'all and (min-width: 30em)'
-parsons.medium:
+impact.medium:
   label: Medium
   mediaQuery: 'all and (min-width: 48em)'
-parsons.large:
+impact.large:
   label: Large
   mediaQuery: 'all and (min-width: 64em)'
-parsons.xlarge:
+impact.xlarge:
   label: Extra large
   mediaQuery: 'all and (min-width: 80em)'
