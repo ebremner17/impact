@@ -16,21 +16,25 @@ use Drupal\node\Entity\Node;
  */
 function impact_preprocess_page(&$variables) {
 
-  $node = \Drupal::routeMatch()->getParameter('node');
+  if ($node = \Drupal::routeMatch()->getParameter('node')) {
 
-  $para_field = $node->get('field_impact_block_type')->getValue();
+    if ($node->bundle == "impact_web_page") {
 
-  $para = Paragraph::load($para_field[0]['target_id']);
+      $para_field = $node->get('field_impact_block_type')->getValue();
 
-  // Get the field entity from the paragraph.
-  $field = $para->field_impact_hero_image->first();
+      $para = Paragraph::load($para_field[0]['target_id']);
 
-  $description = $para->field_impact_hero_image_desc->first()->getValue();
+      // Get the field entity from the paragraph.
+      $field = $para->field_impact_hero_image->first();
 
-  $sources = _impact_get_responsive_image_variables($variables, $field, 'impact_ris_hero_image');
+      $description = $para->field_impact_hero_image_desc->first()->getValue();
 
-  $variables['page']['impact_web_page'] = $sources;
-  $variables['page']['impact_web_page']['description'] = $description['value'];
+      $sources = _impact_get_responsive_image_variables($variables, $field, 'impact_ris_hero_image');
+
+      $variables['page']['impact_web_page'] = $sources;
+      $variables['page']['impact_web_page']['description'] = $description['value'];
+    }
+  }
 }
 
 /**
