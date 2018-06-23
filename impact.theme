@@ -5,3 +5,74 @@
 *
 * Place your custom PHP code in this file.
 */
+
+use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\node\Entity\Node;
+
+/**
+ * Implements hook_preprocess_page().
+ *
+ * @param $variables
+ */
+function impact_preprocess_page(&$variables) {
+
+  $node = \Drupal::routeMatch()->getParameter('node');
+
+  $para_field = $node->get('field_impact_block_type')->getValue();
+
+  $para = Paragraph::load($para_field[0]['target_id']);
+
+  // Get the field entity from the paragraph.
+  $field = $para->field_impact_hero_image->first();
+
+  $description = $para->field_impact_hero_image_desc->first()->getValue();
+
+  $sources = _impact_get_responsive_image_variables($variables, $field, 'impact_ris_hero_image');
+
+  $variables['page']['impact_web_page'] = $sources;
+  $variables['page']['impact_web_page']['description'] = $description['value'];
+}
+
+/**
+ * Helper function.
+ *
+ * Get the responsive image variables.
+ *
+ * @param array $variables
+ * @param \Drupal\image\Plugin\Field\FieldType\ImageItem $field
+ * @param string $responsive_image_style
+ * @return array|null
+ */
+function _impact_get_responsive_image_variables(array &$variables, Drupal\image\Plugin\Field\FieldType\ImageItem $field, string $responsive_image_style) : ?array {
+  // If there is a file present, set responsive image variables.
+  if ($file = $field->entity) {
+    // Set uri and image style id.
+    $variables['uri'] = $file->getFileUri();
+    $variables['responsive_image_style_id'] = $responsive_image_style;
+    // Call template function from responsive image core module.
+    // It sets variables for srcset, media, type and img_element
+    // for the responsive image style.
+    template_preprocess_responsive_image($variables);
+    // Step through each source and get string values.
+    $sources = [];
+    foreach ($variables['sources'] as $source) {
+      $sources[] = [
+        'srcset' => $source['srcset']->value(),
+        'media' => $source['media']->value(),
+        'type' => $source['type']->value(),
+      ];
+    }
+
+    $img_element = file_create_url($variables['img_element']['#uri']);
+
+    unset($variables['sources']);
+    unset($variables['img_element']);
+
+    return [
+      'sources' => $sources,
+      'alt' => $field->get('alt')->getValue(),
+      'img_element' => $img_element,
+    ];
+  }
+  return NULL;
+}

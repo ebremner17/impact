@@ -19,6 +19,32 @@
     </div>
   {% endif %}
   <section id="main">
+    {% if page.impact_web_page %}
+      <div class="hero-image">
+        <div class="hero-image__image">
+          <picture>
+            {% if page.impact_web_page.sources %}
+              {#
+              Internet Explorer 9 doesn't recognise source elements that are wrapped in
+              picture tags. See http://scottjehl.github.io/picturefill/#ie9
+              #}
+              <!--[if IE 9]><video style="display: none;"><![endif]-->
+              {% for source in page.impact_web_page.sources %}
+                <source srcset="{{ source.srcset|raw }}" media="{{ source.media }}" type="{{ source.type }}" />
+              {% endfor %}
+              <!--[if IE 9]></video><![endif]-->
+            {% endif %}
+            {# The controlling image, with the fallback image in srcset. #}
+            <img class="contextual-region" src="{{ page.impact_web_page.img_element }}" alt="{{ page.impact_web_page.alt }}">
+          </picture>
+        </div>
+        {% if page.impact_web_page.description %}
+          <div class="hero-image__description">
+            {{ page.impact_web_page.description }}
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
     {% if page.sidebar %}
       <div class="container-with-sidebar">
     {% else %}
