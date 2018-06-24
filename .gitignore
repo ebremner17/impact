@@ -1,6 +1,5 @@
 # Ignore compiled files.
 node_modules
-css
 
 # Git deploy
 .publish

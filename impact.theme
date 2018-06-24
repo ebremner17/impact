@@ -53,7 +53,7 @@ function impact_preprocess_page(&$variables) {
  * @param string $responsive_image_style
  * @return array|null
  */
-function _impact_get_responsive_image_variables(array &$variables, Drupal\image\Plugin\Field\FieldType\ImageItem $field, string $responsive_image_style) : ?array {
+function _impact_get_responsive_image_variables(array &$variables, $field, $responsive_image_style) {
   // If there is a file present, set responsive image variables.
   if ($file = $field->entity) {
     // Set uri and image style id.
