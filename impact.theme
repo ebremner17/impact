@@ -18,7 +18,7 @@ function impact_preprocess_page(&$variables) {
 
   if ($node = \Drupal::routeMatch()->getParameter('node')) {
 
-    if ($node->bundle == "impact_web_page") {
+    if ($node->getType() == "impact_web_page") {
 
       $para_field = $node->get('field_impact_block_type')->getValue();
 
