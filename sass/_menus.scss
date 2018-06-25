@@ -1,16 +1,16 @@
 .menu-navigation {
   width: 100%;
+  box-shadow: 0 2px 16px rgba(16,54,100,.2);
 
   ul {
-    text-align: center;
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
     background-color: white;
-    padding-left: 2rem;
+    padding-left: 12rem;
     padding-right: 2rem;
-    box-shadow: 0 2px 16px rgba(16,54,100,.2);
+
   }
 
   li {
