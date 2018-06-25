@@ -1,9 +1,17 @@
+.impact-youtube {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+
+  @include large {
+    width: 40rem;
+  }
+}
+
 .paragraph--type--impact-para-video {
   .video-embed-field-provider-youtube {
     iframe {
       @include large {
-        width: 63.125%;
-        height: 63.125%;
         margin-left: auto;
         margin-right: auto;
         left: 0;
