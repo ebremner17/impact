@@ -30,12 +30,18 @@ function impact_preprocess_page(&$variables) {
           // Get the field entity from the paragraph.
           $field = $para->field_impact_hero_image->first();
 
-          $description = $para->field_impact_hero_image_desc->first()->getValue();
+          $description = $para->field_impact_hero_image_desc->first();
+
+          //vardumper($description);
+
+          if (isset($description)) {
+            $description = $description->getValue();
+            $variables['page']['impact_web_page']['description'] = $description['value'];
+          }
 
           $sources = _impact_get_responsive_image_variables($variables, $field, 'impact_ris_hero_image');
 
           $variables['page']['impact_web_page'] = $sources;
-          $variables['page']['impact_web_page']['description'] = $description['value'];
         }
       }
 
